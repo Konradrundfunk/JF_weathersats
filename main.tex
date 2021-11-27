@@ -1,0 +1,24 @@
+% !TeX spellcheck = de_DE
+
+\documentclass[fontzize=12pt,paper=a4,twoside=false]{article}
+\usepackage{ngerman}
+\usepackage{graphicx}
+\graphicspath{{assets/}}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\addtocontents{toc}{\setcounter{tocdepth}{4}} 
+\title{Amateurfunklehrgang}
+\author{Konrad Gralher}
+
+\begin{document}
+         
+    \include{sub/titel.tex}
+    \include{sub/abstract.tex}
+
+\end{document}
