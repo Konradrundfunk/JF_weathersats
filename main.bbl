@@ -1,0 +1,33 @@
+\begin{thebibliography}{1}
+
+\bibitem{Apt-System}
+K.~Kidwell, ``Noaa klm user's guide(englisch).''
+  \url{https://web.archive.org/web/20041204200739/http://www2.ncdc.noaa.gov/docs/klm/index.htm},
+  2004.
+\newblock Abgerufen: 2021-01-01.
+
+\bibitem{APT-How_it_works}
+M.~Bernardi, ``Noaa-apt how it works(englisch).''
+  \url{https://noaa-apt.mbernardi.com.ar/how-it-works.html}.
+\newblock Abgerufen: 2021-01-01.
+
+\bibitem{AlexandreRouma}
+A.~Rouma, ``Apt flowchart in gnuradio).''
+  \url{https://twitter.com/ryzerth/status/1343933680184664066/photo/2}.
+\newblock Abgerufen: 2021-01-03.
+
+\bibitem{DSP.jl}
+J.~DSP, ``Dsp.jl).'' \url{https://github.com/JuliaDSP/DSP.jl}.
+\newblock Abgerufen: 2021-01-10.
+
+\bibitem{APTDecoder.jl}
+A.~Barth, ``Aptdecoder.jl).''
+  \url{https://github.com/Alexander-Barth/APTDecoder.jl}.
+\newblock Abgerufen: 2021-01-10.
+
+\bibitem{Diy137MHz}
+A.~9A4QV, ``Diy 137 mhz apt weather satellite antenna).''
+  \url{https://www.dropbox.com/s/6fpfn2p9filc9ol/DIY%20137MHz%20WX-sat%20V-dipole%20antenna.pdf?dl=0}.
+\newblock Abgerufen: 2021-01-10.
+
+\end{thebibliography}
