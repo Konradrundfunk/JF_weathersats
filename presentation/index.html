@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+	
+	<head>
+		<!-- muli row layout -->
+		
+		<style>
+			.container{
+				display: flex;
+			}
+			.col{
+				flex: 1;
+				}
+		</style>
+			
+		<meta charset="utf-8">
+
+		<title>Wettersatelliten Konrad Gralher</title>
+
+		<meta name="author" content="Konrad Gralher">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/night.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any sec	tion element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background="assets/titlepage.jpeg">
+				</section>
+
+				<section data-transition="zoom" class="center">
+					<h3>Zielsetzung</h3>
+					<br>
+					<ul>
+						<li class="fragment fade-in-then-semi-out">Wetterdaten von Satelliten aus der Erdumlaufbahn zu empfangen</li>
+						<li class="fragment fade-in-then-semi-out">Optimierung der Demodulierung und Decodierung der empfangenen Daten </li>
+						<li class="fragment fade-in-then-semi-out">mit Hilfe der Daten aktuelle Wetterphänomene aufzeichnen </li>
+					</ul>
+				<aside class="notes">
+					# Test
+				</aside>
+				</section>
+				<section>
+					<section data-auto-animate data-background="assets/background.png">
+						<img style="margin-top: 100px; margin-left: -500px; position: relative;" src="assets/noaa19.png" height="60%" width="60%" alt="">
+						<h2 >Grundlagen</h2>						
+					</section>
+					<section data-auto-animate>
+						<h2>Umlaufbahnen</h2>
+						
+						<p class="fragment fade-in-then-semi-out">Low Earth Orbit </p>
+						<p class="fragment fade-in-then-semi-out"> Medium Earth orbit</p>
+						<p class="fragment fade-in-then-semi-out">Geostationärer Orbit </p>
+						<img  src="assets/600px-Orbits_around_earth_scale_diagram.svg.png" alt="">
+
+						<aside class="notes">
+							<p>LEO orbit</p>
+							cyanfarbener Bereich <br>
+							alle 128 min ein Umflug <br>
+							Höhe unter 200km <br>
+							nahe Aufnahmen zur Erde möglich <br>
+							wechselde Position des Satelliten (elpisenförmige Form um die Erde) <br>
+							
+							<p>Medium Earth orbit</p>
+							gelber Bereich <br>
+							10-15 h ein Umflug <br>
+							keine erdbeobachtenden Sat. <br>
+							große Abdeckung deshalb GPS(grün) und kommunikations sat <br>
+							nicht geostationär <br>
+
+							<p>Geostationärer Orbit</p>
+							schwarz <br>
+							bewegung mit der Erde <br>
+							standhaft von der Erde aus <br>
+
+						</aside>
+					</section>
+					<section class="center">
+						<div class="container">
+							<div class="col">
+								<h2>Instrumente</h2>
+								<ul>
+									<li class="fragment">Advanced very-high-resolution radiometer</li>
+									<ul>
+										
+										<li class="fragment fade-in-then-semi-out">sichbarer Bereich und Infrarot (Temperaturmessung möglich)</li>
+										<li class="fragment fade-in-then-semi-out">starke Aussendung</li> 
+										<li class="fragment fade-in-then-semi-out">der Übetragungsart angepasste Auflösung</li>
+									</ul>
+								</ul>
+							</div>
+							<div class="col">
+								<img class="col" src="assets/Avhrr-sea.png" style="position: absolute;" height="300%" width="300%" alt="">
+							</div>
+						</div>
+						<aside class="notes">
+							1978 zum ersten Mal eingesetzt <br>
+							Seetemperatur, Vegetationsüberwachung, Geologische Untersuchungen Feuerüberwachung <br>
+
+
+						</aside>
+						
+					</section>
+					<section>
+						<h2 >Datenübetragung</h2>
+						<p class="fragment fade-in-then-semi-out">automatic picture transmition</p>
+						<p class="fragment fade-in-then-semi-out">low rate picture transmition</p>
+						<p class="fragment" >hight rate picture transmition</p>
+						<img height="800px" src="assets/nooa.jpeg" alt="">
+					
+						<aside class="notes">
+							<p>Apt</p>
+
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section class="center" data-auto-animate data-background="assets/meholdingantenna.png" >
+						<h2 style="color: black;">Antennenbau</h2>	
+						<img height="400px" src="assets/antenna.png" alt="">					
+					</section>
+					<section class="center"> 
+						<div class="col">
+							<h2>Antennenarten</h2>
+							<ul>
+								<li class="fragment fade-in-then-semi-out">V-Dipol Antenne</li>
+								<li class="fragment fade-in-then-semi-out">QFH Antenne</li>
+							</ul>
+						</div>
+						<div class="col">
+							<img class="fragment fade-in-then-semi-out" src="assets/358px-Quadrifilar_helix_antenna_radiosonde.jpg" alt="">
+						</div>
+					</section>
+					<section class="center">
+						<h2>V-Dipol Antenne</h2>
+						<ul>
+							<li class="fragment fade-in-then-semi-out">120° zwischen den Elementen</li>
+							<li class="fragment fade-in-then-semi-out">Länge eines Elementes ist 50cm (zusammen 2m)</li>
+							<li class="fragment fade-in-then-semi-out">im 2m Band resonant (FM Radio, Flugfunk)</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section data-auto-animate class="center" data-background="assets/Noaa18carrier.png">
+						<img style=" transform: rotate(30deg); margin-right: -600px;" height="50%" width="50%" src="assets/rtlsdr.png" alt="">
+						<h2 >Empfang und Dekodierung</h2>						
+					</section>
+					<section class="center">
+						<h2>"software defined radio"</h2>
+						<ul>
+							<li class="fragment fade-in-then-semi-out">Signalverarbeitung über den Computer</li>
+							<ul>
+								<li class="fragment fade-in-then-semi-out">hilfreich bei großen Bandbreiten und komplexen Signalen</li>
+							</ul>
+							<li class="fragment fade-in-then-semi-out">kostengünstiger durch standartisierte Teile</li>
+						</ul>
+						<aside class="notes">
+							können auch analoge Komponeneneten beinhalten <br>
+							meist aber digital <br>
+
+						</aside>
+
+					</section>
+					<section>
+
+					<div class="r-stack center">
+
+
+							<img class="fragment" src="assets/Bildschirmfoto vom 2021-03-13 21-07-42.png" alt="">
+							<br><br>
+							<img src="assets/hobbits.PNG" class="fragment" alt="">
+							<br><br>
+							<img src="assets/aptoutput.png"  class="fragment" alt="">
+					</div>
+					</section>
+				</section>
+
+				<section>
+					<section data-background="assets/hrpt1.jpg" class="center">
+						<h2>Zukunft</h2>
+					</section>
+					<section class="center">
+						<h2>L-Band</h2>
+						<ul>
+							<li class="fragment fade-in-then-semi-out">großere Bandbreiten möglich</li>
+							<ul>
+								<li class="fragment fade-in-then-semi-out">bessere Bildqualität</li>
+							</ul>
+							<li class="fragment fade-in-then-semi-out">braucht eine Satellitenschüssel</li>
+							<li class="fragment fade-in-then-semi-out" >sehr feine Anpassungen nötig</li>
+						</ul>
+					</section>
+				</section>
+				<section class="center" data-background="assets/lastslide.jpeg">
+					<h2>Danksagung</h2>
+					<ul class="fragment">
+						<li>Ullrich Müller</li>
+					</ul>
+					<br>
+					<h2 class="fragment">Webseite und Vortrag</h2>
+					<a class="fragment" href="https://bit.ly/3h4YURh">https://bit.ly/3h4YURh</a>
+				</section>
+				
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				navigationMode : 'linear',
+				transition: 'slide',
+				progress: true,
+				center: false,
+				hash: true,
+				controls : false,
+				transitionSpeed: 'slow',
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
