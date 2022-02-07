@@ -37,9 +37,9 @@
 
 		<div class="reveal">
 
-			<!-- Any sec	tion element inside of this container is displayed as a slide -->
+			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section data-background="assets/titlepage.jpeg">
+				<section data-background="assets/satstitele1.png">
 				</section>
 
 				<section data-transition="zoom" class="center">
@@ -57,164 +57,119 @@
 				<section>
 					<section data-auto-animate data-background="assets/background.png">
 						<img style="margin-top: 100px; margin-left: -500px; position: relative;" src="assets/noaa19.png" height="60%" width="60%" alt="">
-						<h2 >Grundlagen</h2>						
+						<h3 >Vom Satellit zum Wetterbild</h3>						
 					</section>
+
 					<section data-auto-animate>
-						<h2>Umlaufbahnen</h2>
-						
-						<p class="fragment fade-in-then-semi-out">Low Earth Orbit </p>
-						<p class="fragment fade-in-then-semi-out"> Medium Earth orbit</p>
-						<p class="fragment fade-in-then-semi-out">Geostationärer Orbit </p>
-						<img  src="assets/600px-Orbits_around_earth_scale_diagram.svg.png" alt="">
+						<h1>Abstract </h1>
+						<p class="fragment fade-in-then-semi-out">Satellit sendet die Daten aus einer Umlaufbahn 500km über der Erdoberfläche</p>
+						<p class="fragment fade-in-then-semi-out"> Empfang über eine V-Dipol Antenne</p>
+						<p class="fragment fade-in-then-semi-out">anschließende Signalumsetzung durch ein SDR</p>
+						<p class="fragment fade-in-then-semi-out">Signalverarbeitung durch Software</p>
 
-						<aside class="notes">
-							<p>LEO orbit</p>
-							cyanfarbener Bereich <br>
-							alle 128 min ein Umflug <br>
-							Höhe unter 200km <br>
-							nahe Aufnahmen zur Erde möglich <br>
-							wechselde Position des Satelliten (elpisenförmige Form um die Erde) <br>
-							
-							<p>Medium Earth orbit</p>
-							gelber Bereich <br>
-							10-15 h ein Umflug <br>
-							keine erdbeobachtenden Sat. <br>
-							große Abdeckung deshalb GPS(grün) und kommunikations sat <br>
-							nicht geostationär <br>
-
-							<p>Geostationärer Orbit</p>
-							schwarz <br>
-							bewegung mit der Erde <br>
-							standhaft von der Erde aus <br>
-
-						</aside>
-					</section>
-					<section class="center">
-						<div class="container">
-							<div class="col">
-								<h2>Instrumente</h2>
-								<ul>
-									<li class="fragment">Advanced very-high-resolution radiometer</li>
-									<ul>
-										
-										<li class="fragment fade-in-then-semi-out">sichbarer Bereich und Infrarot (Temperaturmessung möglich)</li>
-										<li class="fragment fade-in-then-semi-out">starke Aussendung</li> 
-										<li class="fragment fade-in-then-semi-out">der Übetragungsart angepasste Auflösung</li>
-									</ul>
-								</ul>
-							</div>
-							<div class="col">
-								<img class="col" src="assets/Avhrr-sea.png" style="position: absolute;" height="300%" width="300%" alt="">
-							</div>
-						</div>
-						<aside class="notes">
-							1978 zum ersten Mal eingesetzt <br>
-							Seetemperatur, Vegetationsüberwachung, Geologische Untersuchungen Feuerüberwachung <br>
-
-
-						</aside>
-						
-					</section>
-					<section>
-						<h2 >Datenübetragung</h2>
-						<p class="fragment fade-in-then-semi-out">automatic picture transmition</p>
-						<p class="fragment fade-in-then-semi-out">low rate picture transmition</p>
-						<p class="fragment" >hight rate picture transmition</p>
-						<img height="800px" src="assets/nooa.jpeg" alt="">
-					
-						<aside class="notes">
-							<p>Apt</p>
-
-						</aside>
 					</section>
 				</section>
 				<section>
-					<section class="center" data-auto-animate data-background="assets/meholdingantenna.png" >
-						<h2 style="color: black;">Antennenbau</h2>	
+					<section class="center" data-auto-animate data-background="assets/IMG_20220207_161020.jpg" >
+						<h2>Antennenbau & Vergleich</h2>	
 						<img height="400px" src="assets/antenna.png" alt="">					
 					</section>
 					<section class="center"> 
-						<div class="col">
-							<h2>Antennenarten</h2>
-							<ul>
-								<li class="fragment fade-in-then-semi-out">V-Dipol Antenne</li>
-								<li class="fragment fade-in-then-semi-out">QFH Antenne</li>
-							</ul>
-						</div>
-						<div class="col">
-							<img class="fragment fade-in-then-semi-out" src="assets/358px-Quadrifilar_helix_antenna_radiosonde.jpg" alt="">
-						</div>
-					</section>
-					<section class="center">
-						<h2>V-Dipol Antenne</h2>
+						<h2>Antennenarten</h2>
 						<ul>
-							<li class="fragment fade-in-then-semi-out">120° zwischen den Elementen</li>
-							<li class="fragment fade-in-then-semi-out">Länge eines Elementes ist 50cm (zusammen 2m)</li>
-							<li class="fragment fade-in-then-semi-out">im 2m Band resonant (FM Radio, Flugfunk)</li>
+							<li class="fragment fade-in-then-semi-out">V-Dipol Antenne</li>
+							<li class="fragment fade-in-then-semi-out">QFH Antenne</li>
+							<li class="fragment fade-in-then-semi-out">Kreuzdipol Antenne</li>
 						</ul>
 					</section>
+					<!-- <section class="center">
+						<h2>V-Dipol Antenne</h2>
+						<ul>
+							<li class="fragment fade-in-then-semi-out">2 Elemente 120° zwischen den Elementen</li>
+							<li class="fragment fade-in-then-semi-out">Länge eines Elementes ist 50cm (zusammen 2m)</li>
+							<li class="fragment fade-in-then-semi-out">breitbandige Resonanz auf 137 MHz</li>
+						</ul>
+					</section>
+					<section class="center">
+						<h2>Kreuzdipol Antenne</h2>
+						<ul>
+							<li class="fragment fade-in-then-semi-out">4 Elemente im 90° Abstand zueinander</li>
+							<li class="fragment fade-in-then-semi-out">Länge eines Elementes ist 50cm (zusammen 2m)</li>
+						</ul>
+					</section> -->
+				<section>
+					<div class="r-stack">
+					
+					
+						<img height="750"  class="fragment" src="assets/IMG_20220207_161020.jpg" >
+						<img height="750"  src="assets/Eux7ROrWQAIZuf4.jpg" class="fragment" alt="">
+						<img height="750"  src="assets/20210905T201309Z.png" class="fragment" alt="">
+					</div>
+
+				</section>
 				</section>
 				<section>
 					<section data-auto-animate class="center" data-background="assets/Noaa18carrier.png">
 						<img style=" transform: rotate(30deg); margin-right: -600px;" height="50%" width="50%" src="assets/rtlsdr.png" alt="">
 						<h2 >Empfang und Dekodierung</h2>						
 					</section>
-					<section class="center">
-						<h2>"software defined radio"</h2>
+						<section>
+							<h4>Automatic picture transmition (APT)</h4>
+							<p class="fragment fade-in-then-semi-out">analoges Übertragungsverfahren</p>
+							<p class="fragment fade-in-then-semi-out">noch heute im Einsatz</p>
+							<p class="fragment">hight rate picture transmition</p>
+							<img height="800px" src="assets/nooa.jpeg" alt="">
+						
+						</section>
+					<!-- <section class="center">
+						<h3>Digital signal processing (DSP)</h3>
 						<ul>
-							<li class="fragment fade-in-then-semi-out">Signalverarbeitung über den Computer</li>
+							<li class="fragment fade-in-then-semi-out">Abstraktion der analogen Bauteile</li>
 							<ul>
-								<li class="fragment fade-in-then-semi-out">hilfreich bei großen Bandbreiten und komplexen Signalen</li>
+								<li class="fragment fade-in-then-semi-out">digitale Nachrichtenverarbeitung</li>
 							</ul>
-							<li class="fragment fade-in-then-semi-out">kostengünstiger durch standartisierte Teile</li>
+							<li class="fragment fade-in-then-semi-out">Umsetzung in Julia etc. oder Gnuradio</li>
 						</ul>
-						<aside class="notes">
-							können auch analoge Komponeneneten beinhalten <br>
-							meist aber digital <br>
-
-						</aside>
-
-					</section>
+					</section> -->
 					<section>
 
 					<div class="r-stack center">
 
+						<img class="fragment" src="assets/unknown.png" alt="">
+						<br><br>
+						<img src="assets/hobbits.PNG" class="fragment" alt="">
+						<br><br>
+						<img src="assets/20220115213521.png" class="fragment" alt="">
+						<br><br>
 
-							<img class="fragment" src="assets/Bildschirmfoto vom 2021-03-13 21-07-42.png" alt="">
-							<br><br>
-							<img src="assets/hobbits.PNG" class="fragment" alt="">
-							<br><br>
-							<img src="assets/aptoutput.png"  class="fragment" alt="">
+						<img src="assets/20220103164144.png" class="fragment">
+						<br><br>
+						<img src="assets/20220110214426.png" class="fragment" alt="">
+
 					</div>
 					</section>
+					<section>
+						<div class="center">
+							<h2>Ergebnisse</h2>
+							<li class="fragment fade-in-then-semi-out">Theoretische Verbesserung der Laufzeitgeschwindigkeit um das 3x in beiden
+								Implementationen</li>
+							<li class="fragment fade-in-then-semi-out">Keinen erkennbaren Qualitätsverlust</li>
+							<li class="fragment fade-in-then-semi-out">optimierten Speicherverbrauch</li>
+						</div>
+					</section>
 				</section>
 
-				<section>
-					<section data-background="assets/hrpt1.jpg" class="center">
-						<h2>Zukunft</h2>
-					</section>
-					<section class="center">
-						<h2>L-Band</h2>
-						<ul>
-							<li class="fragment fade-in-then-semi-out">großere Bandbreiten möglich</li>
-							<ul>
-								<li class="fragment fade-in-then-semi-out">bessere Bildqualität</li>
-							</ul>
-							<li class="fragment fade-in-then-semi-out">braucht eine Satellitenschüssel</li>
-							<li class="fragment fade-in-then-semi-out" >sehr feine Anpassungen nötig</li>
-						</ul>
-					</section>
-				</section>
-				<section class="center" data-background="assets/lastslide.jpeg">
+				<section class="center">
 					<h2>Danksagung</h2>
 					<ul class="fragment">
 						<li>Ullrich Müller</li>
 					</ul>
 					<br>
-					<h2 class="fragment">Webseite und Vortrag</h2>
-					<a class="fragment" href="https://bit.ly/3h4YURh">https://bit.ly/3h4YURh</a>
-				</section>
 				
+					<h2 class="fragment">Github</h2>
+					<a class="fragment" href="https://github.com/Konradrundfunk/JF_weathersats">https://github.com/Konradrundfunk/JF_weathersats</a>
+					<p class="fragment">unter der MIT Lizenz.</p>
+				</section>
 			</div>
 		</div>
 
