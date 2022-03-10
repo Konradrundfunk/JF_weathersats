@@ -11,3 +11,5 @@ presentation/*
 !presentation/css/
 !presentation/index.*
 out/*
+.vscode
+/sub/*.aux
