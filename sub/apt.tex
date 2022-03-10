@@ -2,19 +2,32 @@
 \section[Charakteristiken]{Einführung}
 \begin{multicols}{2}
 
-    Das Übertragungsverfahren \glqq Automatic Picture Transmition \grqq kurz APT ist ein analoges Bildübertragungsverfahren welches zuerst auf dem TIROS-8(Start 1963) Satelliten zur Anwendung kam und bis heute meist für Wetterbilder genutzt wird. 
+    Das Übertragungsverfahren \glqq Automatic Picture Transmition \grqq , kurz APT, ist ein analoges Bildübertragungsverfahren, welches zuerst auf dem TIROS-8 Satelliten (1963) zur Anwendung kam und bis heute meist für Wetterbilder genutzt wird. 
+    
     \begin{center}
         \centering
         \includegraphics[scale=0.3]{TIROS_8_PAYLOAD.JPG}
         \captionof{figure}{TIROS-8 im Orbit}
     \end{center}
-    Aktuell befinden sich noch drei Satelliten der US Amerikanischen Wetterbehörde Noaa in einem \glqq Low Earth Orbit\grqq(LEO). Die veraltete Technologie des Verfahrens bieten einen erleichterten Zugang im Vergleich zu heutigen Standards. Außerdem werden meist zu der Entwicklungzeit üblich niedrige Frequenzen genutzt. Das erleichtert den Empfang erheblich. Aufgrund dessen beschäftigt sich diese Arbeit mit der Vereinfachung solcher Prozesse, sowohl im Empfang als auch beim Dekodieren. Dabei sollen Prozesse in der Dekodierung beschleunigt werden, um für ein breiteres Spektrum von Meteorologen und Wissenschaftler zugänglich zu werden. Zusätzlich ist der Arbeitsablauf des Empfanges von der Antenne bis zum Dekodieren noch sehr komplex was verbessert werden soll. Es sollen weiterhin verschiedene Antennenmodell auf ihre Tauglichkeit im Bezug auf den APT Satellitenempfang getestet werden. Ich bin auf dieses Projekt gekommen, da ich mich schon seit einigen Jahren intensiv mit Hochfrequenztechnik in Satelliten beschäftige und zu Beginn oft frustriert von der vorhandenen Dokumentation im Internet war. Weiter haben mich die Antennenanforderungen förmlich erschlagen, da ich am Anfang keinerlei Erfahrungen mit Antennentechnik sowie \glqq Software definded Radios\( \grqq \) hatte. Auch fasziniert mich die Zugänglichkeit von solchen Satelliten, die keinerlei Beschränkungen wie Verschlüsselung erzwingen sondern frei empfänglich sind. Ich sehe in solchen Satelliten deshalb ein großes Potential bezogen auf Wetterstationen oder Regierungen mit wenig Mitteln für Wetterbeobachtungen, die meist nur auf Beobachtungen am Erdboden zurückgreifen müssen und so nur wage Wettervorhersagen treffen können, was zu potentiell gefährlichen Situationen führen kann. Außerdem können so Amateure eigene Daten erfassen um genauer Wetter- und Klimaveränderungen zu erfassen. Im Bezug auf die aktuellen Entwicklungen in dem Erdklima können genaue Beobachtungen getroffen werden, da die Satelliten jeden Tag zweifach über Deutschland fliegen und Daten senden.
+    
+    Aktuell befinden sich noch drei Satelliten der US Amerikanischen Wetterbehörde Noaa in einem \glqq Low Earth Orbit \grqq (LEO). Die veraltete Technologie des Verfahrens bietet einen erleichterten Zugang im Vergleich zu heutigen Standards. Außerdem wurden meist, wie zu der Entwicklungszeit üblich, niedrige Frequenzen genutzt. Diese erleichtern den Empfang erheblich.
+    
+    In dieser Arbeit beschäftigte ich mich mit der Vereinfachung solcher Prozesse, sowohl im Empfang von Wetterdaten mit dem Bau einer Antenne als auch beim Dekodieren mittels eines optimierten Julia Programms, sodass ein Graustufenbild in Echtzeit auf z.B. dem Computerbildschirm dargestellt werden kann.
+    
+    Dabei sollen Prozesse in der Dekodierung beschleunigt werden, um ein breiteres Spektrum von Meteorologen und Wissenschaftlern zu erreichen. Zusätzlich ist der Arbeitsablauf des Empfanges von der Antenne bis zum Dekodieren noch sehr komplex, was verbessert werden soll. In der vorliegenden Arbeit gehe ich weiterhin vergleichend auf verschiedene Antennenmodelle und ihre Tauglichkeit im Bezug auf den APT Satellitenempfang ein. 
+    
+    Die Idee zu diesem Projekt entstand, da ich mich schon seit einigen Jahren intensiv mit Hochfrequenztechnik in Satelliten beschäftigte und zu Beginn oft frustriert von der vorhandenen Dokumentation im Internet war. Weiterhin haben mich die Antennenanforderungen förmlich erschlagen, da ich am Anfang keinerlei Erfahrungen mit Antennentechnik sowie \glqq software defined radios \grqq hatte. Die Zugänglichkeit von solchen Satelliten, die keinerlei Beschränkungen wie Verschlüsselung erzwingen, sondern frei empfänglich sind, faszinieren mich. 
+    Deshalb sehe ich einerseits in solchen Satelliten ein großes Potential für Wetterstationen, Katastrophenschutz oder Regierungen mit wenig Mitteln für Wetterbeobachtungen. Diese können bisher meist nur auf Beobachtungen am Erdboden zurückgreifen, was nur wage Wettervorhersagen erlaubt. Dadurch werden potentiell gefährliche Situationen oft nicht erkannt, was wiederum schwere menschliche und wirtschaftliche Auswirkungen von Naturkatastrophen zur Folge haben kann. 
+    Andererseits können so Amateure eigene Daten erheben um genauer Wetter- und Klimaveränderungen zu erfassen. 
+    Insbesondere vor dem Hintergrund der aktuellen Entwicklungen im Erdklima können genaue Beobachtungen und standardisierte Vergleiche herangezogen werden, um schon geringe Veränderungen zu registrieren, da die Satelliten jeden Tag zweifach über Deutschland fliegen und Daten senden.
     \newpage
 
 \end{multicols}
 \section[]{Optimierung der Software}
 \begin{multicols*}{2}
-    Die zu Übertragenden Daten stammen zumeist aus einem \glqq Advanced Very High Resolution Radiometer\grqq (AVHRR). Da das APT Verfahren nur einen geringen Datendurchsatz ermöglicht, werden die hochauflösenden Datenströme von dem AVHRR Instrument herunterskaliert sowie auf Graustufen umgesetzt und eignen sich deshalb für einen Transport über das APT Verfahren.  Das AVHRR der Serie 3 ist in der Lage zwischen sechs verschiedenen Spektralbändern zu differenzieren. Die Bänder reichten dabei von einer Wellenlänge von 0,58 \( \mu m\) bis 12,5 \( \mu m\) und bieten jeweils eine Auflösung von einem Pixel auf 1,1km. Kanäle 1-3A zeichnen dabei die Reflektionen der sichtbaren oder infrarotnahen Strahlen an der Erde auf. Diese Datengrundlage lässt eine Analyse der Vegetation, den Wolken, Gewässern, Schnee und Eis zu. Die verbleibenden Kanäle stellen zu einem großen Teil die Erdeigene Infrarotstrahlung dar, die von dem Meer sowie dem Land ausgestrahlt wird und genaue Temperaturwerte liefert. Die verbleibenden Instrumente sind für diese Arbeit von keiner Relevanz, da sie nicht in den entsprechenden Übertragungsverfahren ausgeliefert werden. 
+    Die zu Übertragenden Daten stammen zumeist aus einem \glqq Advanced Very High Resolution Radiometer\grqq (AVHRR). Da das APT Verfahren nur einen geringen Datendurchsatz ermöglicht, werden die hochauflösenden Datenströme von dem AVHRR Instrument herunterskaliert sowie auf Graustufen umgesetzt und eignen sich deshalb für einen Transport über das APT Verfahren. Das AVHRR der Serie 3 ist in der Lage zwischen sechs verschiedenen Spektralbändern zu differenzieren. Die Bänder reichen dabei von einer Wellenlänge von 0,58 \( \mu m\) bis 12,5 \( \mu m\) und bieten jeweils eine Auflösung von einem Pixel auf 1,1km. Kanäle 1-3A zeichnen dabei die Reflektionen der sichtbaren oder infrarotnahen Strahlen an der Erde auf. 
+    Diese Datengrundlage lässt eine differenzierte Analyse von Vegetation, Wolken, Gewässern, Schnee und Eis zu. Die verbleibenden Kanäle stellen zu einem großen Teil die erdeigene Infrarotstrahlung dar, die von Meer und Land ausgestrahlt wird und genaue Temperaturwerte liefert. 
+    Die verbleibenden Instrumente sind für diese Arbeit von keiner Relevanz, da sie nicht in den entsprechenden Übertragungsverfahren ausgeliefert werden. 
     \cite{Apt-System} 
     Das Signal setzt sich aus einer Amplitudenmodulierten Niederfrequenzsignal(NF) in dem das Nutzsignal transportiert wird und dem Träger der Modulation(in diesem Fall 2.400Hz) zusammen. Das entstandene Signal wird anschließend für den Transport erneut moduliert. Diesmal wird die Frequenzmodulation aufgrund der geringeren Störungswahrscheinlichkeit gewählt. Der Träger entspricht jetzt der gewünschten Frequenz im VHF Bereich \( \approx  \)137 MHZ) und das Signal wird über eine Helix Antenne zirkular polarisiert mit wenigen Watt ausgesendet. Das Signal wird dabei aufgrund der hohen Frequenz nicht an der Ionosphäre(80-300km) reflektiert und kann somit in die Erdatmosphäre eindringen und auf der Erde empfangen werden. Es werden insgesamt 2 Linien der beiden Kanäle und zusätzliche Telemetrische Daten übertragen. So sind maximal 4160 Pixel in Grustufen pro Sekunde möglich. Anhand dieser Daten werden einfache Vorhersagen des Wetters ermöglicht. So ist die Position der Wolken genau zu bestimmen. Außerdem lässt sich die Temperatur mit einer hohen Genauigkeit extrahieren. Naturereignisse wie Vulkanmausbrücke bleiben allerdings lange unbemerkt auf den schlecht aufgelösten Bildern des APT Übertragungsverfahrens. 
     \cite{APT-How_it_works}
@@ -119,7 +132,7 @@
     \includegraphics[scale=0.14]{nooa.jpg}
     \captionof{figure}{Ein Überflug empfangen mit der V-Dipolantenne.}
 \end{center}
-
+\
 
 \part{Zukunft}
 \section[]{High-resolution picture transmission(HRPT)}
@@ -129,4 +142,4 @@ Hrpt beschreibt den Nachfolger des APT Verfahrens. Es setzt im Vergleich zu dies
 
 \part*{Danksagung}
 
-Ich bedanke mich bei meinem Onkel der mich beim Bau der Antennen unterstützt hat und mir die Kreuzdipolantenne zur Verfügung gestellt hat.
+Ich bedanke mich bei Ullrich Müller der mich beim Bau der V-Dipol Antenne unterstützt hat und mir die Kreuzdipolantenne zur Verfügung gestellt hat.

@@ -4,3 +4,10 @@
 *.out
 *.toc
 *.fdb_latexmk
+main.*
+!*.pdf
+presentation/*
+!presentation/assets/
+!presentation/css/
+!presentation/index.*
+out/*
