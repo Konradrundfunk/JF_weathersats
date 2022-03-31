@@ -1,3 +1,5 @@
-## Pdfs herunterladen
-Die latex Dateien werden nach jedem push automatisch von Github Actions generiert. Der modifizierte Code von [Closoco](https://github.com/Closoco) findet sich [hier](https://github.com/Konradrundfunk/pdflatex-action). Um sich die Dateien herunterzuladen wählt man den Tab Actions aus, den neusten commit und schlussendlich findet man eine Zip Datei unter Artifacts die alle Dateien enthält.
-
+## Jugendforscht 2022 - Das Wetter im Bilde 🚀
+### Konrad Gralher 
+---
+### Präsentation anschauen
+Es ist möglich sich die Präsentation direkt im Browser mit den interaktiven Objekten anzusehen. Dazu einfach auf [diese](https://konradrundfunk.github.io/JF_weathersats/presentation/index.html) Webseite gehen. 
