@@ -27,8 +27,7 @@
 \section[]{Optimierung der Antennen}
 
 \begin{multicols*}{2}
-    Einer der wichtigsten Faktoren ist neben der Empfindlichkeit des Empfängers die Charakteristiken der verwendeten Antenne. In dem folgenden Abschnitt habe ich verschiedene Antennen verglichen und sie auf Tauglichkeit sowie ihre Anwendbarkeit geprüft. Die erste Bauweise die ich analysiert habe ist die sogenannte V-Dipol Antenne die eine starke Ähnlichkeit zu einer gewöhnlichen Dipol Antenne besitzt. Ich habe mich aufgrund der besseren Reproduzierbarkeit dieser Arbeit dazu entschieden die Antenne selber zu bauen. Die nötigen Daten lassen sich mithilfe der Formel 1 und 2 berechnen. X muss dabei immer einem vielfachen von 2 entsprechen um die Verhältnisse zu wahren. 299792458m/s entspricht der Ausbreitungsgeschwindigkeit von Elektromagnetischen Wellen also annähernd der Lichtgeschwindigkeit. Das Ergebnis der Gleichung ist in Nanometern zu verstehen, so erhalten wir bei einer Mittelfrequenz von 137MHz unserer Antenne, eine Länge von insgesamt 2188266nm. Da wir den größtmöglichen Gewinn bei der Antenne erreichen wollen, nutzen wir den Divisor 2 bei Funktion 4 und erhalten so eine Länge von insgesamt 1,094133m. Jedes Element entspricht also 5,
-    47066m.    
+    Einer der wichtigsten Faktoren ist neben der Empfindlichkeit des Empfängers die Charakteristiken der verwendeten Antenne. In dem folgenden Abschnitt habe ich verschiedene Antennen verglichen und sie auf Tauglichkeit sowie ihre Anwendbarkeit geprüft. Die erste Bauweise die ich analysiert habe ist die sogenannte V-Dipol Antenne die eine starke Ähnlichkeit zu einer gewöhnlichen Dipol Antenne besitzt. Ich habe mich aufgrund der besseren Reproduzierbarkeit dieser Arbeit dazu entschieden die Antenne selber zu bauen. Die nötigen Daten lassen sich mithilfe der Formel 1 und 2 berechnen. X muss dabei immer einem vielfachen von 2 entsprechen um die Verhältnisse zu wahren. 299792458m/s entspricht der Ausbreitungsgeschwindigkeit von Elektromagnetischen Wellen also annähernd der Lichtgeschwindigkeit. Das Ergebnis der Gleichung ist in Nanometern zu verstehen, so erhalten wir bei einer Mittelfrequenz von 137MHz unserer Antenne, eine Länge von insgesamt 2188266nm. Da wir den größtmöglichen Gewinn bei der Antenne erreichen wollen, nutzen wir den Divisor 2 bei Funktion 4 und erhalten so eine Länge von insgesamt 1,094133m. Jedes Element entspricht also 54,7066cm.    
 
     \begin{equation}
         \lambda = \frac{299792458 m/s}{f}  
@@ -40,12 +39,26 @@
     \end{equation}
 
     Um die Elemente mit dem Radio in unserem Fall einem Software Defined Radio(SDR) zu verbinden, nutzen wir einfaches RG58 Koaxialkabel welches einen relativ hohen Dämpfungsfaktor bei hohen Frequenzen besitzt. Deshalb versuchen wir den Abschnitt zwischen dem Radio und der Antenne möglichst gering zu halten. So kann der Verlust reduziert werden und die Einstrahlung vermindert werden. Beide Elemente aus Kupferdraht können über einen handelsüblichen Kabelverbinder mit dem Koaxialkabel verbunden werden. Hierzu ist kein Löten nötig, aber es ist der Stabilität sehr zuträglich. Weiterhin muss eine gewisse Richtwirkung der Antenne bestehen um das Signal zu Rauschen Verhältnis zu verbessern. Die genauen Angaben zu dem Verhältnis der beiden Elemente zueinander, habe ich aus \cite[]{Diy137MHz} bezogen. 
+    \begin{center}
+        \centering
+        \includegraphics[scale=0.07]{antenna.png}
+        \captionof{figure}{Verbindungsstück der V-Dipol Antenne zwischen Koaxialkabel und Elementen.}
+    \end{center}
+\end{multicols*}
+\newpage
+\begin{multicols*}{2}
 
     Nach einigen Tests ist die Richtwirkung beim Empfang stark aufgefallen, so muss der Satellit in seinem Orbit verfolgt werden um die besten Ergebnisse zu erhalten. Außerdem konnte man die falsche Polarisation der Antenne bemerken, die einen geringen Verlust an Signal zu Rausch Verhältnis zur Folge hat. Das Signal wird zirkular polarisierend von den Satelliten ausgesendet, die Antenne aber ist nur linear polarisiert durch ihre flache Bauweise. Eine helixförmige Antenne würde die richtige Polarisation aufweisen, ist aber auch entsprechend kompliziert zu bauen und wurde aus diesen Gründen nicht in diesem Projekt einbezogen. 
 
     Eine weiter Möglichkeit die klassische Dipol Antenne zu variieren, besteht darin, diese zu doppeln und in Form einer Kreuzdipolantenne zu bauen. Die getestete Kreuzdipolantenne hat sich außerordentlich schlecht für Satellitenempfang geeignet, da sie nur den Bereich über zentral Europa Abdecken konnte. Ein Grund ist womöglich die schlechte Richtwirkung, diese Resultiert aus den immer gleichbleibenden Winkeln zwischen den Elementen der Antenne. 
-
+    
+    \begin{center}
+        \centering
+        \includegraphics[scale=0.11]{IMG_20220207_161020.jpg}
+        \captionof{figure}{Kreuzdipolantenne auf dem Dach.}
+    \end{center}
 \end{multicols*}
+
 
 
 \begin{center}
@@ -136,9 +149,21 @@
             0.5893124179815058;\\
         \end{bmatrix}
     \end{math}
-
-    Bei dem Quellcode habe ich mich aufgrund fehlender Dokumentation von dem DSP(digital signal processing) Paket stark an der Arbeit von \cite[]{APTDecoder.jl}orientiert. Um auch in dieser Implementation an das Niederfrequenzsignal aus der Amplitudenmodulation zu kommen, verwende ich die Hilbert Transformation. Diese setzt das Signal in ein komplexes Signal um, welches aus einer Amplitude und einem Phasenwinkel besteht. Da die Hochfrequenz nur in den Phasenwinkel umgesetzt wird, können wir den Amplitudenwert als demoduliertes Niederfrequenzsignal weiterverarbeiten. Die Filter in Julia DSP bestehen dabei aus der Filterart wie einem Bandpass in diesem Fall und einem Filtertyp einem Butterworth Filter. Der Filtertyp bestimmt dabei die Eigenschaften des Filters, so definiert er die Passbandfrequenzen und die Steigung an den Flanken des gefilterten Bereiches. Da wir das Eingangssignal filtern um keine unnötigen Störungen in der Hilbert Transformation zu erzeugen beschränken wir uns mithilfe des Bandpasses auf den Bereich von 400Hz bis 4400Hz. Nachdem das Signal demoduliert wurde, kann ein Neuabtastung mit einer geringeren Abtastrate dabei helfen den Synchronisationsvorgang zu erleichtern. Ich behelfe mich dabei der Funktion 1. und 2. Der verwendete Code um die Arrays in eine richtige Anordnung zu bringen habe ich komplett von \cite[]{APTDecoder.jl} übernommen. So entstehen mehrdimensionale Vektoren die in Grasstufen umgesetzt und gespeichert werden können. Siehe Abb.5.
-    Da der Julia Compiler sehr viele Überprüfungen zur Übersetzungszeit ausführt, dauert der Testprozess sehr lange was den Einstieg erschwert. Außerdem werden die Abhängigkeiten schon vorab kompiliert war zusätzlich die Übersetzungszeit verlängert. Die Benutzung wird aber erleichtert, da keine Speicherlecks mehr möglich sind und die Laufzeit durch eine vorab Kompilierung verbessert wird. Aber die Bildergebnisse wurden deutlich verbessert außerdem konnte eine deutliche Reduktion der Laufzeit festgestellt werden. So erreicht Julia C ähnliche Leistungen was sich deutlich in der Auslastung von Systemressourcen zeigt. 
+    \\
+    In einem Zeitfensters visualisiert kann man die Ausschläge der Telemetriestreifen erkennen, die das Maximum des Wertebereiches W erreichen. Die X-Achse stellt die einzelnen Objekte des Vektors dar(Abtastpunkte).
+    \\
+    \begin{center}
+        \centering
+        \includegraphics[scale=0.2]{newplot(1).png}
+    \end{center} 
+    Anschließend wird der Vektor mithilfe der in Julia zur Verfügung gestellten DSP Funktionen in ein komplexes Signal mithilfe der Hilbert Transfomation umgewandelt und der Betrag verwendet.   
+    \begin{center}
+        \centering
+        \includegraphics[scale=0.2]{newplot(5).png}
+        \captionof{figure}{Zu erkennen das Eingangssignal(orange) und dessen Füllkurve(blau). 
+        }
+    \end{center} 
+    Anschließend habe ich auch von diesen Daten Interpoliert. Hierbei ist festzustellen, dass die Implementation in Julia eine deutlich höhere Qualität erhält im Vergleich zu der Gnuradio Implementation. Als letzten Schritt habe ich auch in Julia eine heatmap verwendet um die Daten darzustellen.
 \end{multicols*}
     
 \begin{center}
@@ -147,24 +172,17 @@
     \captionof{figure}{Abtastraten im Vergleich 
     oben:37500 \( t_s \)\\ unten: 11025\( t_s \)}
 \end{center} 
-\begin{center}
-    \centering
-    \includegraphics[scale=0.3]{20220110214426.png}
-    \captionof{figure}{Endergebnis im Vergleich 
-    oben:3112 \( t_s \)\\ unten: 11025\( t_s \)}
-\end{center}
 
 \begin{center}
     \centering
     \includegraphics[scale=0.3]{2022-04-10_15-27.png}
     \captionof{figure}{Der Flowchart in Gnuradio.}
 \end{center}
-
 \begin{center}
     \centering
-    \includegraphics[scale=0.18]{test.png}
-    \captionof{figure}{Ergebnis des Julia Programes.}
-\end{center}
+    \includegraphics[scale=0.3]{newplot(7).png}
+    \captionof{figure}{Ergebnis der Julia Implementation}
+\end{center} 
 
 
 
