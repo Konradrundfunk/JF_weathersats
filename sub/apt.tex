@@ -27,10 +27,8 @@
 \section[]{Optimierung der Antennen}
 
 \begin{multicols*}{2}
-    Einer der wichtigsten Faktoren ist neben der Empfindlichkeit des Empfängers die Charakteristiken der verwendeten Antenne. In dem folgenden Abschnitt habe ich verschiedene Antennen verglichen und sie auf Tauglichkeit sowie ihre Anwendbarkeit geprüft. Die erste Bauweise die ich analysiert habe ist die sogenannte V-Dipol Antenne die eine starke Ähnlichkeit zu einer gewöhnlichen Dipol Antenne besitzt. Ich habe mich aufgrund der besseren Reproduzierbarkeit dieser Arbeit dazu entschieden die Antenne selber zu bauen. Die nötigen Daten lassen sich mithilfe der Formel 3 und 4 berechnen. X muss dabei immer einem vielfachen von 2 entsprechen um die Verhältnisse zu wahren. 299792458m/s entspricht der Ausbreitungsgeschwindigkeit von Elektromagnetischen Wellen also annähernd der Lichtgeschwindigkeit. Das Ergebnis der Gleichung ist in Nanometern zu verstehen, so erhalten wir bei einer Mittelfrequenz von 137MHz unserer Antenne, eine Länge von insgesamt 2188266nm. Da wir den größtmöglichen Gewinn bei der Antenne erreichen wollen, nutzen wir den Divisor 2 bei Funktion 4 und erhalten so eine Länge von insgesamt 1,094133m. Jedes Element entspricht also 5,
-    47066m.
-    \newpage
-    
+    Einer der wichtigsten Faktoren ist neben der Empfindlichkeit des Empfängers die Charakteristiken der verwendeten Antenne. In dem folgenden Abschnitt habe ich verschiedene Antennen verglichen und sie auf Tauglichkeit sowie ihre Anwendbarkeit geprüft. Die erste Bauweise die ich analysiert habe ist die sogenannte V-Dipol Antenne die eine starke Ähnlichkeit zu einer gewöhnlichen Dipol Antenne besitzt. Ich habe mich aufgrund der besseren Reproduzierbarkeit dieser Arbeit dazu entschieden die Antenne selber zu bauen. Die nötigen Daten lassen sich mithilfe der Formel 1 und 2 berechnen. X muss dabei immer einem vielfachen von 2 entsprechen um die Verhältnisse zu wahren. 299792458m/s entspricht der Ausbreitungsgeschwindigkeit von Elektromagnetischen Wellen also annähernd der Lichtgeschwindigkeit. Das Ergebnis der Gleichung ist in Nanometern zu verstehen, so erhalten wir bei einer Mittelfrequenz von 137MHz unserer Antenne, eine Länge von insgesamt 2188266nm. Da wir den größtmöglichen Gewinn bei der Antenne erreichen wollen, nutzen wir den Divisor 2 bei Funktion 4 und erhalten so eine Länge von insgesamt 1,094133m. Jedes Element entspricht also 5,
+    47066m.    
 
     \begin{equation}
         \lambda = \frac{299792458 m/s}{f}  
@@ -65,6 +63,7 @@
 
 
 \section[]{Optimierung der Software}
+\subsection*{Funktionsweise}
 \begin{multicols*}{2}
     Die zu Übertragenden Daten stammen zumeist aus einem \glqq Advanced Very High Resolution Radiometer\grqq (AVHRR). Da das APT Verfahren nur einen geringen Datendurchsatz ermöglicht, werden die hochauflösenden Datenströme von dem AVHRR Instrument herunterskaliert sowie auf Graustufen umgesetzt und eignen sich deshalb für einen Transport über das APT Verfahren. Das AVHRR der Serie 3 ist in der Lage zwischen sechs verschiedenen Spektralbändern zu differenzieren. Die Bänder reichen dabei von einer Wellenlänge von 0,58 \( \mu m\) bis 12,5 \( \mu m\) und bieten jeweils eine Auflösung von einem Pixel auf 1,1km. Kanäle 1-3A zeichnen dabei die Reflektionen der sichtbaren oder infrarotnahen Strahlen an der Erde auf. 
     Diese Datengrundlage lässt eine differenzierte Analyse von Vegetation, Wolken, Gewässern, Schnee und Eis zu. Die verbleibenden Kanäle stellen zu einem großen Teil die erdeigene Infrarotstrahlung dar, die von Meer und Land ausgestrahlt wird und genaue Temperaturwerte liefert. 
@@ -72,6 +71,7 @@
     \cite{Apt-System} 
     Das Signal setzt sich aus einer Amplitudenmodulierten Niederfrequenzsignal(NF) in dem das Nutzsignal transportiert wird und dem Träger der Modulation(in diesem Fall 2.400Hz) zusammen. Das entstandene Signal wird anschließend für den Transport erneut moduliert. Diesmal wird die Frequenzmodulation aufgrund der geringeren Störanfälligkeit gewählt. Der Träger entspricht jetzt der gewünschten Frequenz im VHF Bereich \( \approx  \)137 MHZ) und das Signal wird über eine Helix Antenne zirkular polarisiert mit wenigen Watt von dem Satelliten ausgesendet. Das Signal wird dabei aufgrund der hohen Frequenz nicht an der Ionosphäre(80-300km) reflektiert und kann somit in die Erdatmosphäre eindringen und auf der Erde empfangen werden. Es werden insgesamt 2 Linien der beiden Kanäle und zusätzliche Telemetrische Daten jede Sekunde übertragen(4160 Symbole). So lässt die Position der Wolken genau bestimmen, was bei mehreren Bildern täglich eine Approximation der Wolkenbewegung ermöglicht. Außerdem lässt sich die Temperatur mit einer hohen Genauigkeit extrahieren. 
     \cite{APT-How_it_works}
+    \subsection*{Gnuradio}
     Die Modulation und Decodierung wird beim Empfang der Signale revertiert, und so das Eingangs erwähnte AVHRR Signal in durch den Übertragungsweg komprimierter Form sichtbar.
     Dazu habe ich die genannten Modulations- und Dekodierungsverfahren digital in GnuRadio \cite[]{Gnuradio} einem DSP(digital signal processing) Framework umgesetzt. Dazu wurde die Signale in einem Tiefpassfilter gefiltert damit hochfrequente Störungen später nicht das Bild stören. Dieser hatte eine Grenzfrequenz von 2,4kHZ da die FM Demodulation bereits in der SDR Steuersoftware erfolgte. Da das Signal im Hintergrund von der Software in eine Frequenzbereich mittels einer Schnellen Fourier-Transformation(eng. FFT) umgesetzt wird, habe ich eine Breitbandige Hamming Fensterfunktion hinzugefügt um dem Leck-Effekt entgegenzuwirken. Dieser entsteht durch die FFT Funktion, da diese in programmatischen Implementationen keinen unendlichen Integral besitzen kann und es so zu dem Leck-Effekt kommt, da die Abstrakt definierten Enden der Funktion das selbe Ergebnis besitzen müssen.
 
@@ -86,25 +86,41 @@
     \\
     x = Eingabeabtastrate,\\ y = Ausgangsabtastrate
     \begin{equation}
-        Dezimationsfaktor = GCD(x,y) 
+        Dezimationsfaktor =  \frac{x}{GCD(x,y)}
     \end{equation}
     \begin{equation}
-        Interpolationsfaktor = y / Dzf. \\
+        Interpolationsfaktor =  \frac{y}{GCD(x,y)} \\
     \end{equation}
     
 
-    Die Eingangsdaten werden hierbei als WAV Datei bereitgestellt mit einer Abtastrate von 176400(\( t_s \)). Das Nyquist-Abtasttheorem beschreibt dabei, dass ein Sinusförmiges Signal bei doppelter Abtastrate von der Eingangsfrequenz komplett repräsentiert werden kann. Diese Eigenschaft können wir uns auch zunutze machen und die Abtastrate auf theoretisch 4800\( t_s \) beschränken. So reduziert man Beispielsweise den Datensatz um das 30.fache ohne theoretisch merkbare Qualitätsverluste. Die Abtastrate von 176400\( t_s \) durch das doppelte von der maximalen Nutzfrequenz, die sich aus dem Träger von 2400Hz und dem Signal(3112.5Hz) zusammensetzt. Das bedeutet eine deutlich schnellere Laufzeit da unnötige Iterationen eingespart werden können. Ein ähnliches Verfahren wird auch bei analogen Empfängern verwendet, um leichter das Signal mischen zu können, da Oszillatoren mit einer hohen Frequenz die Tendenz besitzen stärker in der Frequenz zu schwanken. 
-    Abb. 2 ist zwar etwas Zeitversetzt zeigt aber anhand der Stärke der Farbe, dass bei gleichbleibender Qualität weniger Abtastpunkte benötigt werden. Um noch mehr Abtastpunkte einzusparen, wird das Signal gegen eine Signalquelle gemischt um so eine maximale Arbeitsfrequenz(NF) von 3112.5Hz zu erhalten. Da das Signal auf beiden Seitenbändern aufmoduliert ist, können wir uns auf das obere beschränken und so eine Abtastrate von 6225Hz nutzen. Wir erhalten nachdem wir die Formel angewand haben einen Interpolationsfaktor von 4 und einen Dezimationsfaktor von 1200. Nachdem ich dieses Verfahren getestet habe, konnte man nur schwache Indikatoren wie die Telemetriestreifen erkennen. Das deutet auf eine zu geringe Abtastrate hin. Nachdem ich die Abtastrate verdoppelt habe, sind weitere Artifakte aufgetreten, aber das Bild wurde besser sichtbar. Das Verhalten lässt sich mit der Interpolation erklären, da da die Daten schon vorher durch den Dezimationsprozess verworfen wurden, werden bei der Interpolation nur neue Punkte auf der bereits dezimierten Funktion hinzugefügt. Deshalb entstehen Artifakte die es nie im Orginal Signal gegeben hat. Die Formel hat die Gesetzmäßigkeit das bei vielfachen der Aus- oder Eingangsabtastrate der Dezimationsfaktor konstant bleibt und sich nur der Interpolationsfaktor veränfdert, deswegen ist keine starke Verbesserung der Bildqualität in den beiden Beispielen zu erkennen.
+    Die Eingangsdaten werden hierbei als WAV Datei bereitgestellt mit einer Abtastrate von 176400(\( t_s \)). Das Nyquist-Abtasttheorem beschreibt dabei, dass ein Sinusförmiges Signal bei doppelter Abtastrate von der Eingangsfrequenz komplett repräsentiert werden kann. Diese Eigenschaft können wir uns auch zunutze machen und die Abtastrate auf theoretisch 6225\( t_s \) beschränken. So reduziert man Beispielsweise den Datensatz um das $$\approx 30.fache$$ ohne theoretisch merkbare Qualitätsverluste. Die Abtastrate von 176400\( t_s \) durch das doppelte von der maximalen Nutzfrequenz, die sich aus dem Träger von 2400Hz und dem Signal(3112.5Hz) zusammensetzt. Das würde eine deutlich schnellere Laufzeit bedeuten, da unnötige Iterationen über die Daten vermieden werden können. Nachdem ich dieses Verfahren getestet habe, konnte man nur blass das Bild erkennen. Zu sehen waren nur die Telemetriestreifen, die mit der größten Signalstärke ausgesand werden. Dieses Verhalten deutet auf eine zu geringe Abtastrate hin. Nachdem ich die Abtastrate verdoppelt habe, sind weitere Artifakte aufgetreten, aber das Bild wurde besser sichtbar. Dieses Verhalten konnte ich auf den Interpolationsfaktor zurückfuhren, da dieser die Daten die schon vorher durch den Dezimationsprozess verworfen wurden versucht zu rekonstruieren. Deshalb entstehen Artifakte die es nie im Orginal Signal nie gegeben hat. Die Formel hat die Gesetzmäßigkeit das bei vielfachen der Aus- oder Eingangsabtastrate der Dezimationsfaktor konstant bleibt und sich nur der Interpolationsfaktor verändert, deswegen ist kein großer Unterschied in der Datenmenge, sondern nur in der Amplitude(Helligkeit) zu erkennen.
 
     \begin{center}
         \centering
-        \includegraphics[scale=0.3]{2022-04-10_16-10.png}
-        \captionof{figure}{Abtastraten im Vergleich 
-        oben:37500 \( t_s \)\\ unten: 11025\( t_s \)}
+        \includegraphics[scale=0.7]{2022-04-10_16-15.png}
+        \includegraphics[scale=0.5]{2022-04-10_16-14.png}
+        \captionof{figure}{
+                Abtastraten im Vergleich oben:9600 \( t_s \)\\ unten: 4800\( t_s \)
+            }
     \end{center} 
 
-    So konnte zum ursprünglichen Algorithmus die Abtastrate um den Faktor 3,5 reduziert werden, was die Anzahl der Iterationen im darunterliegenden Code um den gleichen Faktor mindert. Die Dateigröße bei einer Aufnahme mit 3750 \( t_s \) sollte auch die Dateigröße der Eingangsdatei maßgeblich reduzieren. Bei genauerer Betrachtung der Resultate ist ein leichter Qualitätsverlust erkennbar. Dieser Resultiert womöglich aus der Nutzung der theoretischen Mindestabtastrate. Bei den Berechnungen nicht berücksichtigt wurden mögliche Ungenauigkeiten wie der Dopplereffekt, der die Aufnahme verzerrt, oder Effekte die bei der Digitalen Signalverarbeitung entstanden sind. Außerdem werden Artefakte von dem Sinusförmigen Signal mit einer Frequenz von -1.4MHz in das Nutzsignal gemischt. Um Trotzdem eine unveränderte Bildqualität zu erreichen, hat sich der dreifache Wert des theoretischen Minimums als beste Balance zwischen Qualität und Leistung herausgestellt.
-    Ich habe anschließend versucht das Flowchart auch in Julia zu replizieren. Dazu habe ich die Daten und die Abtastrate aus der WAV Datei importiert und so einen Array aus Floats mit einer Größe von jeweils 64Bit bekommen. Der Wertebereich reicht dabei von 1.0 bis -1.0.
+    Um diesen Effekt zu umgehen, braucht man eine möglichst geringe Interpolationsrate, um dies zu erreichen habe ich die Formel(4) umgestellt, sodass der Interpolationsfaktor 1 entspricht. Daraus ergibt sich dann die Abhängikeit, dass der größten gemeinsamen Teiler, der Ausgangsrate entsprechen muss, also ein vielfaches von der Eingangsrate. Bei einer Eingangsabtastrate von 176400 \( t_s \) bin ich zu einem Optimum bei einem Dezimationsfaktor 20 gekommen. Dieser hat eine Ausgangsabtastrate von 8820 \( t_s \). 
+
+
+    \begin{center}
+        \centering
+        \includegraphics[scale=0.7]{2022-04-11_21-15.png}
+        \includegraphics[scale=0.8]{2022-04-11_21-17.png}
+        \captionof{figure}{
+                Abtastraten im Vergleich oben: Eingangsabtastrate\\ unten: 8820\( t_s \)
+            }
+    \end{center} 
+
+    Anschließend wird die Hüllkurve des Signales benötigt die in der digitalen Signalverarbeitung meist über den Betrag des Quadratursignal(komplexes Signal bestehend aus einem reellen und imaginären Teil) errechnet wird. Um das komplexe Signal zu erzeugen wird meist eine Hilbert Transformation verwendet. Der Betrag kann in Gnuradio durch den Block complex to float berechnet werden. 
+    Die verarbeiteten Daten habe ich schlussendlich in einer Art heatmap visualisiert die einer Breite von $$\frac{Ausgangsabtastrate}{2} $$ haben muss, da zwei Linien jede Sekunde übertragen werden.
+    \subsection*{JuliaDSP}
+    Ich habe anschließend versucht das Gnuradio Script auch in Julia zu replizieren, um die Laufzeit weiter zu verlürzen. Julia ist eine hight level Programmiersprache, die aber zugleich eine ähnliche Leistungsfähigkeit wie c oder c++ besitzt.
+    Dazu habe ich die Daten und die Abtastrate aus der WAV Datei importiert und so einen Array aus Floats mit einer Größe von jeweils 64Bit bekommen. Der Wertebereich reicht dabei von 1.0 bis -1.0.
    
     \begin{math}
         \mathbf{W} =[-1.0, 1.0]
@@ -150,12 +166,6 @@
     \captionof{figure}{Ergebnis des Julia Programes.}
 \end{center}
 
-
-
-\part{Zukunft}
-\section[]{High-resolution picture transmission(HRPT)}
-
-Hrpt beschreibt den Nachfolger des APT Verfahrens. Es setzt im Vergleich zu diesem auf eine digitale Übertragung der Daten. Die Signale werden im L-Band auf Frequenzen um 1,7GHz ausgesendet. Die Übertragungen beschränken sich aber auf einfache Bilddaten in verschiedenen Wellenlängen des visuellen und infraroten Spektrums. Die Daten sind zu einem großen Teil die selben wie aus dem APT Verfahren aber mit einer deutlich erhöhten Qualität. Deshalb setzten neben Noaa auch Europäische Wetterorganisationen auch heute noch auf dieses Verfahren. Da die Antennen sehr klein werden wird eine Satellitenschüssel erforderlich um die Verluste der kleinen Antenne zu kompensieren. Hierzu eignet sich auch eine Helix Antenne die aufgrund der kleinen Größe einfacher zu bauen ist als für 137Mhz. Leider bewegt sich der Trend immer weiter weg von einfach zu empfangenden Signalen, die mit wenig Aufwand empfangen werden können. Das hat zum einen den Grund des deutlich erhöhten Datendurchsatzes in höheren Frequenzen. Zum anderen den technischen Fortschritt in Bezug auf die Dekodierungsverfahren sowie die Modulationsverfahren.  
 
 
 \part*{Danksagung}
