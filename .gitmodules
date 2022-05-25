@@ -1,0 +1,3 @@
+[submodule "JuliaAPT"]
+	path = JuliaAPT
+	url = https://github.com/Konradrundfunk/JuliaAPT
